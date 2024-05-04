@@ -1,6 +1,18 @@
 <resources>
     <string name="app_name">Shopping List</string>
 
+    <!-- Dialog Labels -->
+    <string name="add_shopping_item_label">Add shopping item</string>
+    <string name="item_name_label">Item name</string>
+    <string name="confirm_label">Confirm</string>
+    <string name="dismiss_label">Dismiss</string>
+
+    <!-- Common Labels -->
+    <string name="add_label">Add</string>
+
+    <!-- SHOPPING LIST ITEMS -->
+    <string name="quantity_label">Quantity</string>
+
     <!-- ERRORS -->
-    <string name="itemQuantityIsError">Please enter a valid number</string>
+    <string name="item_quantity_isError">Please enter a valid number</string>
 </resources>

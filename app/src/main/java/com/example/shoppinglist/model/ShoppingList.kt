@@ -1,4 +1,4 @@
-package com.example.shoppinglist
+package com.example.shoppinglist.model
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,10 +17,10 @@ import androidx.compose.ui.unit.dp
 import com.example.shoppinglist.bean.ShoppingItem
 
 @Composable
-fun ShoppingListApp(innerPadding: PaddingValues, listOfShoppingItems: List<ShoppingItem>) {
-    var shoppingItems by remember {
-        mutableStateOf(listOf<ShoppingItem>())
-    }
+fun ShoppingListApp(
+    innerPadding: PaddingValues,
+    listOfShoppingItems: List<ShoppingItem>
+) {
 
     Column(
         modifier = androidx.compose.ui.Modifier
@@ -32,8 +32,11 @@ fun ShoppingListApp(innerPadding: PaddingValues, listOfShoppingItems: List<Shopp
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
-            items(shoppingItems) {
-
+            items(listOfShoppingItems) {
+                ShoppingListItem(it,
+                    {},
+                    {}
+                )
             }
         }
     }

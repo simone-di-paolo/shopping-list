@@ -19,10 +19,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.shoppinglist.bean.ShoppingItem
 import com.example.shoppinglist.ui.theme.ShoppingListTheme
 import com.example.shoppinglist.dialog.CustomAlertDialog
+import com.example.shoppinglist.model.ShoppingListApp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,7 +58,7 @@ fun ScaffoldBuilder() {
                     titleContentColor = MaterialTheme.colorScheme.primary,
                 ),
                 title = {
-                    Text("Shopping LIst")
+                    Text(stringResource(id = R.string.app_name))
                 }
             )
         },
@@ -75,7 +77,7 @@ fun ScaffoldBuilder() {
         },*/
         floatingActionButton = {
             FloatingActionButton(onClick = { showDialog = true }) {
-                Icon(Icons.Default.Add, contentDescription = "Add")
+                Icon(Icons.Default.Add, contentDescription = stringResource(id = R.string.add_label))
             }
         }
     ) { innerPadding ->
@@ -88,9 +90,9 @@ fun ScaffoldBuilder() {
     if (showDialog) {
         CustomAlertDialog(
             dismissCustomAlert = { showDialog = false },
-            dialogTitle = "Add shopping item",
-            dialogItemNameValue = "Item name",
-            dialogItemQuantityValue = "Quantity",
+            dialogTitle = stringResource(id = R.string.add_shopping_item_label),
+            dialogItemNameValue = stringResource(id = R.string.item_name_label),
+            dialogItemQuantityValue = stringResource(id = R.string.quantity_label),
             shoppingList = shoppingList,
             setShoppingList = { shoppingList = it }
         )

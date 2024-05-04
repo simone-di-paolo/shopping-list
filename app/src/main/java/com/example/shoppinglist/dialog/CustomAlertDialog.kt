@@ -33,8 +33,7 @@ fun CustomAlertDialog(
     var itemName by remember { mutableStateOf("") }
     var itemQuantity by remember { mutableStateOf("") }
     var isErrorTriggeredItemQuantity by remember { mutableStateOf(false) }
-    var mutableShoppingList = shoppingList
-
+    val mutableShoppingList = shoppingList
 
     AlertDialog(
         title = {
@@ -67,7 +66,7 @@ fun CustomAlertDialog(
                         if (isErrorTriggeredItemQuantity) {
                            Text(
                                modifier = Modifier.fillMaxWidth(),
-                               text = stringResource(id = R.string.itemQuantityIsError),
+                               text = stringResource(id = R.string.item_quantity_isError),
                                color = MaterialTheme.colorScheme.error
                            )
                         }
@@ -95,7 +94,7 @@ fun CustomAlertDialog(
                     }
                 }
             ) {
-                Text("Confirm")
+                Text(stringResource(id = R.string.confirm_label))
             }
         },
         dismissButton = {
@@ -104,7 +103,7 @@ fun CustomAlertDialog(
                     dismissCustomAlert()
                 }
             ) {
-                Text("Dismiss")
+                Text(stringResource(id = R.string.dismiss_label))
             }
         }
     )
@@ -116,9 +115,9 @@ fun CustomAlertDialogPreview() {
     CustomAlertDialog(
         shoppingList = listOf<ShoppingItem>(),
         dismissCustomAlert = {},
-        dialogTitle = "Add shopping item",
-        dialogItemNameValue = "Item name",
-        dialogItemQuantityValue = "Quantity",
+        dialogTitle = stringResource(id = R.string.add_shopping_item_label),
+        dialogItemNameValue = stringResource(id = R.string.item_name_label),
+        dialogItemQuantityValue = stringResource(id = R.string.quantity_label),
         setShoppingList = {}
     )
 }
