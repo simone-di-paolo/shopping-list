@@ -51,7 +51,9 @@ fun ShoppingListItem(
     ){
         Text(
             text = name,
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier
+                .width(135.dp)
+                .padding(16.dp),
         )
         Text(
             text = stringResource(id = R.string.quantity_label) + ": " + shoppingItem.quantity,
