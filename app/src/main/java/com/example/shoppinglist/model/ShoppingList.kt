@@ -12,6 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.shoppinglist.bean.ShoppingItem
@@ -19,7 +20,7 @@ import com.example.shoppinglist.bean.ShoppingItem
 @Composable
 fun ShoppingListApp(
     innerPadding: PaddingValues,
-    listOfShoppingItems: List<ShoppingItem>
+    listOfShoppingItems: SnapshotStateList<ShoppingItem>
 ) {
 
     Column(
@@ -35,7 +36,9 @@ fun ShoppingListApp(
             items(listOfShoppingItems) {
                 ShoppingListItem(it,
                     {},
-                    {}
+                    {
+                        listOfShoppingItems.remove(it)
+                    }
                 )
             }
         }

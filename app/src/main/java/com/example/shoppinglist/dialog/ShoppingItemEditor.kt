@@ -22,30 +22,30 @@ import com.example.shoppinglist.R
 import com.example.shoppinglist.bean.ShoppingItem
 
 @Composable
-fun CustomAlertDialog(
+fun ShoppingItemEditorAlertDialog(
     dismissCustomAlert: () -> Unit,
-    dialogTitle: String,
-    dialogItemNameValue: String,
+    editDialogTitle: String,
+    itemNameToEdit: String,
+    onItemNameChange : (String) -> Unit,
     dialogItemQuantityValue: String,
-    shoppingList: SnapshotStateList<ShoppingItem>,
-    setShoppingList: (SnapshotStateList<ShoppingItem>) -> Unit
+    onDialogItemChange : (ShoppingItem) -> Unit,
+    shoppingItem: ShoppingItem
 ) {
-
     var itemName by remember { mutableStateOf("") }
     var itemQuantity by remember { mutableStateOf("") }
     var isErrorTriggeredItemQuantity by remember { mutableStateOf(false) }
-    val mutableShoppingList = shoppingList
 
     AlertDialog(
         title = {
-            Text(text = dialogTitle)
+            Text(text = editDialogTitle)
         },
         text = {
             Column() {
                 OutlinedTextField(
                     value = itemName,
                     onValueChange = { itemName = it },
-                    label = { Text(dialogItemNameValue)},
+                    label = { Text(stringResource(id = R.string.item_name_label))},
+                    placeholder = { Text(itemNameToEdit)},
                     singleLine = true,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -58,18 +58,19 @@ fun CustomAlertDialog(
                             isErrorTriggeredItemQuantity = false
                         }
                     },
-                    label = { Text(dialogItemQuantityValue)},
+                    label = { Text(stringResource(id = R.string.quantity_label))},
+                    placeholder = { Text(dialogItemQuantityValue)},
                     singleLine = true,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(8.dp),
                     supportingText = {
                         if (isErrorTriggeredItemQuantity) {
-                           Text(
-                               modifier = Modifier.fillMaxWidth(),
-                               text = stringResource(id = R.string.item_quantity_isError),
-                               color = MaterialTheme.colorScheme.error
-                           )
+                            Text(
+                                modifier = Modifier.fillMaxWidth(),
+                                text = stringResource(id = R.string.item_quantity_isError),
+                                color = MaterialTheme.colorScheme.error
+                            )
                         }
                     })
             }
@@ -83,12 +84,12 @@ fun CustomAlertDialog(
                     if (itemName.isNotBlank() && itemQuantity.isNotBlank()) {
                         try {
                             val newItem = ShoppingItem(
-                                id = shoppingList.size+1,
+                                id = shoppingItem.id,
                                 name = itemName,
                                 quantity = itemQuantity.toInt(),
                                 isEditing =  false)
-                            mutableShoppingList.add(newItem)
-                            setShoppingList(mutableShoppingList)
+                            //setShoppingList(mutableShoppingList + newItem)
+                            onDialogItemChange(newItem)
                             dismissCustomAlert()
                         } catch (e: NumberFormatException) {
                             isErrorTriggeredItemQuantity = true
@@ -113,11 +114,11 @@ fun CustomAlertDialog(
 
 @Preview
 @Composable
-fun CustomAlertDialogPreview() {
+fun ShoppingItemEditorAlertDialogPreview() {
     CustomAlertDialog(
         shoppingList = SnapshotStateList<ShoppingItem>(),
         dismissCustomAlert = {},
-        dialogTitle = stringResource(id = R.string.add_shopping_item_label),
+        dialogTitle = stringResource(id = R.string.edit_shopping_item_label),
         dialogItemNameValue = stringResource(id = R.string.item_name_label),
         dialogItemQuantityValue = stringResource(id = R.string.quantity_label),
         setShoppingList = {}

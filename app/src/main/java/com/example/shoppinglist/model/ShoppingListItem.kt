@@ -15,6 +15,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -22,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.shoppinglist.R
 import com.example.shoppinglist.bean.ShoppingItem
+import com.example.shoppinglist.dialog.ShoppingItemEditorAlertDialog
 
 @Composable
 fun ShoppingListItem(
@@ -29,16 +34,24 @@ fun ShoppingListItem(
     onEditClick: () -> Unit,
     onDeleteClick: () -> Unit
 ) {
+    var showEditDialog by remember {
+        mutableStateOf(false)
+    }
     var name = shoppingItem.name
     if (name.length > 10) {
         name = name.substring(0, 7) + "..."
+    }
+
+    var itemNameToEdit by remember { mutableStateOf(shoppingItem.name) }
+    var dialogItemQuantityValue by remember {
+        mutableStateOf(shoppingItem.quantity)
     }
 
     Row (
         modifier = Modifier
             .fillMaxWidth()
             .clickable {
-                onEditClick()
+                showEditDialog = true
             }
             .padding(8.dp)
             .border(
@@ -63,7 +76,9 @@ fun ShoppingListItem(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.End
         ) {
-            IconButton (onClick = onEditClick) {
+            IconButton (onClick = {
+                onDeleteClick()
+            }) {
                 Icon(
                     modifier = Modifier
                         .padding(8.dp)
@@ -71,6 +86,23 @@ fun ShoppingListItem(
                     imageVector = Icons.Default.Delete, contentDescription = "Delete button")
             }
         }
+    }
+
+    if(showEditDialog) {
+        ShoppingItemEditorAlertDialog (
+            dismissCustomAlert = { showEditDialog = false },
+            editDialogTitle = stringResource(id = R.string.edit_shopping_item_label),
+            itemNameToEdit = itemNameToEdit,
+            onItemNameChange = { itemNameToEdit = it },
+            dialogItemQuantityValue = shoppingItem.quantity.toString(),
+            onDialogItemChange = {
+                shoppingItem.name = it.name
+                shoppingItem.quantity = it.quantity
+                itemNameToEdit = it.name
+                dialogItemQuantityValue = it.quantity
+            },
+            shoppingItem = shoppingItem
+        )
     }
 }
 

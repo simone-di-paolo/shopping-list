@@ -19,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.shoppinglist.bean.ShoppingItem
@@ -47,7 +48,7 @@ fun ScaffoldBuilder() {
     }
 
     var shoppingList by remember {
-        mutableStateOf(listOf<ShoppingItem>())
+        mutableStateOf(SnapshotStateList<ShoppingItem>())
     }
 
     Scaffold(

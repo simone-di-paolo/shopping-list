@@ -3,6 +3,7 @@
 
     <!-- Dialog Labels -->
     <string name="add_shopping_item_label">Add shopping item</string>
+    <string name="edit_shopping_item_label">Edit shopping item</string>
     <string name="item_name_label">Item name</string>
     <string name="confirm_label">Confirm</string>
     <string name="dismiss_label">Dismiss</string>
