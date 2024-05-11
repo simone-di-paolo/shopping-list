@@ -43,6 +43,7 @@ fun CustomAlertDialog(
         text = {
             Column() {
                 OutlinedTextField(
+                    label = { Text(text="Enter the Item")},
                     value = itemName,
                     onValueChange = { itemName = it },
                     label = { Text(dialogItemNameValue)},
@@ -51,6 +52,7 @@ fun CustomAlertDialog(
                         .fillMaxWidth()
                         .padding(8.dp))
                 OutlinedTextField(
+                    label = { Text(text="Enter the Quantity")},
                     value = itemQuantity,
                     onValueChange = {
                         itemQuantity = it
