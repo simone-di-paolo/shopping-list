@@ -6,7 +6,7 @@ This repository contains a simple exercise app for creating a Shopping List in o
 Users can enter a name and a numerical value and the item will appear inside the Shopping List. 
 The values, then, can be edited (by clicking again inside the item) or deleted by clicking on the delete icon.
 
-This exercize has been developed by following the Udemy course <a href="https://www.udemy.com/course/android-kotlin-developer/?couponCode=KEEPLEARNING">The Complete Android 14 & Kotlin Development Masterclass</a>
+This exercise has been developed by following the Udemy course <a href="https://www.udemy.com/course/android-kotlin-developer/?couponCode=KEEPLEARNING">The Complete Android 14 & Kotlin Development Masterclass</a>
 with some small changes made on my side (like the edit on a new Custom Alert Dialog instead of editing directly on the Main Activity).
 
 ## Screenshots
